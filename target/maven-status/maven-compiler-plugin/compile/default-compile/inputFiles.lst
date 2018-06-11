@@ -1,0 +1,8 @@
+/home/junior/NetBeansProjects/login-service/src/main/java/com/juniorlima/login/model/LoginModel.java
+/home/junior/NetBeansProjects/login-service/src/main/java/com/juniorlima/login/model/PhoneModel.java
+/home/junior/NetBeansProjects/login-service/src/main/java/com/juniorlima/login/controller/LoginController.java
+/home/junior/NetBeansProjects/login-service/src/main/java/com/juniorlima/login/model/StatusModel.java
+/home/junior/NetBeansProjects/login-service/src/main/java/com/juniorlima/login/model/ProfileModel.java
+/home/junior/NetBeansProjects/login-service/src/main/java/com/juniorlima/login/LoginApplication.java
+/home/junior/NetBeansProjects/login-service/src/main/java/com/juniorlima/login/repository/LoginRepository.java
+/home/junior/NetBeansProjects/login-service/src/main/java/com/juniorlima/login/utils/Utils.java

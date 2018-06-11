@@ -8,10 +8,6 @@ package com.juniorlima.login.utils;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.Duration;
-import java.util.Calendar;
 import java.util.Date;
 import org.joda.time.DateTime;
 import org.joda.time.Interval;
@@ -38,7 +34,7 @@ public class Utils {
         System.out.println(interval);
 
         org.joda.time.Duration duration = interval.toDuration();
-        System.out.println("Duration in minutes: "+ duration.getStandardMinutes());
+        System.out.println("Duration in minutes: " + duration.getStandardMinutes());
         long minutes = duration.getStandardMinutes();
         return minutes;
     }

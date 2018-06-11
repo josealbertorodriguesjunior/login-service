@@ -1,0 +1,8 @@
+com/juniorlima/login/LoginApplication.class
+com/juniorlima/login/utils/Utils.class
+com/juniorlima/login/repository/LoginRepository.class
+com/juniorlima/login/controller/LoginController.class
+com/juniorlima/login/model/LoginModel.class
+com/juniorlima/login/model/ProfileModel.class
+com/juniorlima/login/model/PhoneModel.class
+com/juniorlima/login/model/StatusModel.class

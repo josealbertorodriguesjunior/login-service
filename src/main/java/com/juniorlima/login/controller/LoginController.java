@@ -17,9 +17,6 @@ import com.juniorlima.login.repository.LoginRepository;
 import com.juniorlima.login.utils.Utils;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -98,8 +95,7 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public StatusModel doLogin(@Valid @RequestBody LoginModel login, HttpServletResponse res, HttpServletRequest req) throws NoSuchAlgorithmException, UnsupportedEncodingException {
-        HttpSession session = req.getSession();
+    public StatusModel doLogin(@Valid @RequestBody LoginModel login) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         StatusModel status = new StatusModel();
         login.setPassword(utils.createHash(login.getPassword()));
         String password = login.getPassword();
@@ -110,10 +106,6 @@ public class LoginController {
         Long hasEmail = loginRepository.countByEmail(email);
         Long isValid = loginRepository.countByEmailAndPassword(email, password);
         if (isValid > 0) {
-            res.setHeader("token", token);
-            String headerValue = res.getHeader("token");
-            session.setAttribute("token", headerValue);
-            System.out.println("Token: " + headerValue);
             loginTemp.setLastLogin(new Date());
             loginRepository.save(loginTemp);
             status.setId(loginTemp.getId());
@@ -147,26 +139,30 @@ public class LoginController {
         LoginModel login = new LoginModel();
         login = loginRepository.findUserById(id);
         long verify = utils.compareMinutes(new Date(), login.getLastLogin());
-        if (verify <= 30) {
-            ResponseEntity response = new ResponseEntity(HttpStatus.OK);
-            profile.setEmail(login.getEmail());
-            profile.setName(login.getName());
-            profile.setPassword(login.getPassword());
-            for (int i = 0; i < login.getPhones().size(); i++) {
-                phone.setId(login.getPhones().get(i).getId());
-                phone.setDdd(login.getPhones().get(i).getDdd());
-                phone.setPhone(login.getPhones().get(i).getPhone());
-                phones.add(phone);
-            }
-            profile.setPhones(phones);
-            profile.setStatus(response.toString());
-            profile.setMessage("Welcome " + profile.getName());
-        } else{
+        if (login.getLastLogin() == null) {
             ResponseEntity response = new ResponseEntity(HttpStatus.UNAUTHORIZED);
-            profile.setMessage("Invalid Session!");
+            profile.setMessage("Invalid Session! Please sign in to your account");
             profile.setStatus(response.toString());
+        } else {
+            if (verify <= 30) {
+                ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+                profile.setEmail(login.getEmail());
+                profile.setName(login.getName());
+                profile.setPassword(login.getPassword());
+                for (int i = 0; i < login.getPhones().size(); i++) {
+                    phone.setDdd(login.getPhones().get(i).getDdd());
+                    phone.setPhone(login.getPhones().get(i).getPhone());
+                    phones.add(phone);
+                }
+                profile.setPhones(phones);
+                profile.setStatus(response.toString());
+                profile.setMessage("Welcome " + profile.getName());
+            } else {
+                ResponseEntity response = new ResponseEntity(HttpStatus.UNAUTHORIZED);
+                profile.setMessage("Invalid Session! Please sign in to your account");
+                profile.setStatus(response.toString());
+            }
         }
-
         return profile;
     }
 }
