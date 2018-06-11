@@ -5,6 +5,7 @@
  */
 package com.juniorlima.login.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.util.Date;
 import java.util.Objects;
 
@@ -12,6 +13,7 @@ import java.util.Objects;
  *
  * @author junior
  */
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class StatusModel {
     private Long id;
     private Date createdAt;

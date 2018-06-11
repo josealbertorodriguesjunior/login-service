@@ -1,5 +1,6 @@
 package com.juniorlima.login.model;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
@@ -21,6 +22,7 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 @Entity
 @Table(name = "login")
 @EntityListeners(AuditingEntityListener.class)
+@JsonSerialize(include=JsonSerialize.Inclusion.NON_NULL)
 public class LoginModel implements Serializable {
 
     @Id
