@@ -138,31 +138,36 @@ public class LoginController {
         ProfileModel profile = new ProfileModel();
         LoginModel login = new LoginModel();
         login = loginRepository.findUserById(id);
-        long verify = utils.compareMinutes(new Date(), login.getLastLogin());
-        if (login.getLastLogin() == null) {
-            ResponseEntity response = new ResponseEntity(HttpStatus.UNAUTHORIZED);
-            profile.setMessage("Invalid Session! Please sign in to your account");
-            profile.setStatus(response.toString());
+        if (login == null) {
+            profile.setMessage("No Users Created Yet");
         } else {
-            if (verify <= 30) {
-                ResponseEntity response = new ResponseEntity(HttpStatus.OK);
-                profile.setEmail(login.getEmail());
-                profile.setName(login.getName());
-                profile.setPassword(login.getPassword());
-                for (int i = 0; i < login.getPhones().size(); i++) {
-                    phone.setDdd(login.getPhones().get(i).getDdd());
-                    phone.setPhone(login.getPhones().get(i).getPhone());
-                    phones.add(phone);
-                }
-                profile.setPhones(phones);
-                profile.setStatus(response.toString());
-                profile.setMessage("Welcome " + profile.getName());
-            } else {
+            long verify = utils.compareMinutes(new Date(), login.getLastLogin());
+            if (login.getLastLogin() == null) {
                 ResponseEntity response = new ResponseEntity(HttpStatus.UNAUTHORIZED);
                 profile.setMessage("Invalid Session! Please sign in to your account");
                 profile.setStatus(response.toString());
+            } else {
+                if (verify <= 30) {
+                    ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+                    profile.setEmail(login.getEmail());
+                    profile.setName(login.getName());
+                    profile.setPassword(login.getPassword());
+                    for (int i = 0; i < login.getPhones().size(); i++) {
+                        phone.setDdd(login.getPhones().get(i).getDdd());
+                        phone.setPhone(login.getPhones().get(i).getPhone());
+                        phones.add(phone);
+                    }
+                    profile.setPhones(phones);
+                    profile.setStatus(response.toString());
+                    profile.setMessage("Welcome " + profile.getName());
+                } else {
+                    ResponseEntity response = new ResponseEntity(HttpStatus.UNAUTHORIZED);
+                    profile.setMessage("Invalid Session! Please sign in to your account");
+                    profile.setStatus(response.toString());
+                }
             }
         }
+
         return profile;
     }
 }
