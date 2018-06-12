@@ -32,6 +32,14 @@ public class LoginController {
     LoginRepository loginRepository;
 
     Utils utils = new Utils();
+    
+    @GetMapping
+    public String instructions(){
+        return "Create Login --> domain.com:8080/api/sign-up<br/>"
+                + "Login to account --> domain.com:8080/api/login<br/>"
+                + "Update account --> domain.com:8080/api/update/user/{id}<br/>"
+                + "Delete account --> domain.com:8080/api/delete/user/{id}<br/>";
+    }
 
     @PostMapping("/sign-up")
     public StatusModel createLogin(@Valid @RequestBody LoginModel login) throws NoSuchAlgorithmException, UnsupportedEncodingException {
@@ -56,7 +64,6 @@ public class LoginController {
             login.setPhones(phones);
             login.setCreatedAt(new Date());
             loginRepository.save(login);
-            status.setId(login.getId());
             status.setStatus(response.toString());
             status.setMessage("Usuario criado com sucesso");
             status.setCreatedAt(login.getCreatedAt());
@@ -66,7 +73,7 @@ public class LoginController {
         return status;
     }
 
-    @PutMapping("/user/update/{id}")
+    @PutMapping("/update/user/{id}")
     public StatusModel updateLogin(@PathVariable(value = "id") Long id, @Valid @RequestBody LoginModel loginDetails) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         StatusModel status = new StatusModel();
         LoginModel login = loginRepository.findUserById(id);
@@ -79,7 +86,6 @@ public class LoginController {
         loginRepository.save(login);
         ResponseEntity response = new ResponseEntity(HttpStatus.OK);
         status.setCreatedAt(login.getCreatedAt());
-        status.setId(login.getId());
         status.setLastLogin(login.getLastLogin());
         status.setModifiedAt(login.getModifiedAt());
         status.setToken(login.getToken());
@@ -108,7 +114,6 @@ public class LoginController {
         if (isValid > 0) {
             loginTemp.setLastLogin(new Date());
             loginRepository.save(loginTemp);
-            status.setId(loginTemp.getId());
             status.setToken(loginTemp.getToken());
             status.setCreatedAt(loginTemp.getCreatedAt());
             status.setModifiedAt(loginTemp.getModifiedAt());
@@ -139,7 +144,10 @@ public class LoginController {
         LoginModel login = new LoginModel();
         login = loginRepository.findUserById(id);
         if (login == null) {
-            profile.setMessage("No Users Created Yet");
+            ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
+            profile.setMessage("No Users Found");
+            profile.setStatus(response.toString());
+            
         } else {
             long verify = utils.compareMinutes(new Date(), login.getLastLogin());
             if (login.getLastLogin() == null) {
@@ -170,4 +178,5 @@ public class LoginController {
 
         return profile;
     }
+    
 }
