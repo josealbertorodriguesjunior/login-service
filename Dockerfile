@@ -3,6 +3,5 @@ RUN apt-get update -y
 RUN apt-get install default-jdk -y
 RUN apt-get install default-jre -y
 COPY /target /home
-RUN cd /home/target 
-RUN java -jar *.jar
+RUN java -jar /home/target/*.jar
 EXPOSE 80
