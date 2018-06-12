@@ -1,9 +1,7 @@
 FROM debian
-RUN apt-get update
-RUN apt-get install default-jdk
-RUN apt-get install default-jre
-RUN apt-get install nano
-RUN apt-get install git
+RUN sudo apt-get update -y
+RUN sudo apt-get install default-jdk -y
+RUN sudo apt-get install default-jre -y
 COPY /target /var/www
-RUN cd /var/www/target && java -jar *.jar
+RUN sudo cd /var/www/target && java -jar *.jar
 EXPOSE 80
