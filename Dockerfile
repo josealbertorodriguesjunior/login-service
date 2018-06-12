@@ -1,7 +1,4 @@
-FROM debian
-RUN apt-get update -y
-RUN apt-get install default-jdk -y
-RUN apt-get install default-jre -y
-COPY /target /home
-
-EXPOSE 80
+FROM openjdk:8
+ADD target/login-1.0.jar login-1.0.jar
+EXPOSE 8080
+ENTRYPOINT ["java","-jar","login-1.0.jar"]

@@ -1,6 +1,0 @@
-version: "3.0"
-services: 
-  web:
-    image: app:v1
-    ports:
-      - 8080:80
