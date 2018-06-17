@@ -96,7 +96,7 @@ public class LoginController {
         return status;
     }
 
-    @DeleteMapping("/user/delete/{id}")
+    @DeleteMapping("/delete/user/{id}")
     public ResponseEntity<?> deleteLogin(@PathVariable(value = "id") Long id) {
         loginRepository.deleteById(id);
         return ResponseEntity.ok().build();
