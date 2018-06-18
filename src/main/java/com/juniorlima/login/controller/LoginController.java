@@ -127,7 +127,7 @@ public class LoginController {
         if (hasEmail > 0 && hasPassword == 0) {
             ResponseEntity response = new ResponseEntity(HttpStatus.UNAUTHORIZED);
             status.setStatus(response.toString());
-            status.setStatus("Usuário e/ou senha inválidos");
+            status.setMessage("Usuário e/ou senha inválidos");
         }
         if (hasEmail == 0) {
             ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
