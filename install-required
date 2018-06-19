@@ -1,0 +1,5 @@
+#!/bin/bash
+
+apt install maven -y
+apt install git -y
+apt install default-jre -y

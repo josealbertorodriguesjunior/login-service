@@ -1,0 +1,12 @@
+#!/bin/bash
+
+if [ "$EUID" -ne 0 ]
+    then echo "Please run as root"
+    exit
+else
+    ./install-required
+    ./install-docker
+    mvn clean install
+    ./build-container
+    ./run-container
+fi
