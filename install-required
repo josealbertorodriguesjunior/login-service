@@ -1,4 +1,4 @@
 #!/bin/bash
 
 apt install maven -y
-apt install default-jre -y
+apt install default-jdk -y
