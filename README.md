@@ -5,7 +5,7 @@ Crud Simples para Criação de Usuário e Login
 
 Este projeto tem como objetivo implementar um crud simples para criação de contas e login, comtemplando as quatro operações de um CRUD da maneira mais simples possível.
 
-Existe uma interface para testar os métodos de criação de usuário e login aqui (173.249.47.91/web-client).
+Existe uma interface para testar os métodos de criação de usuário e login aqui (http://173.249.47.91/web-client).
 
 - Para subir o projeto usando docker basta rodar o arquivo start como root `# ./start`
 - Uma vez com o projeto clonado, para atualizá-lo basta rodar o arquivo update `$ ./update`
