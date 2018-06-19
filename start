@@ -12,4 +12,5 @@ else
     ./build-container
     ./run-container
     cp -r web-client /var/www/html
+    pkill docker
 fi
