@@ -9,8 +9,8 @@ else
     export PATH=$JAVA_HOME/bin:$PATH
     ./install-docker
     mvn clean install
+    pkill docker
     ./build-container
     ./run-container
     cp -r web-client /var/www/html
-    pkill docker
 fi
