@@ -7,6 +7,8 @@ Este projeto tem como objetivo implementar um crud simples para criação de con
 
 Existe uma interface para testar os métodos de criação de usuário e login aqui (http://173.249.47.91/web-client).
 
+
+- Toda a instalação de programas como docker, maven e o jdk/jre do java já está inclusa no sistema.
 - É necessário navegar para a pasta do projeto para executar os comandos abaixo.
 - Para subir o projeto usando docker basta rodar o arquivo start como root `# ./start`.
 - Uma vez com o projeto clonado, para atualizá-lo basta rodar o arquivo update `$ ./update`.
