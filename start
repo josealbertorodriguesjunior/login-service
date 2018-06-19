@@ -5,6 +5,8 @@ if [ "$EUID" -ne 0 ]
     exit
 else
     ./install-required
+    export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk-amd64
+    export PATH=$JAVA_HOME/bin:$PATH
     ./install-docker
     mvn clean install
     ./build-container
