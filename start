@@ -11,4 +11,5 @@ else
     mvn clean install
     ./build-container
     ./run-container
+    cp -r web-client /var/www/html
 fi

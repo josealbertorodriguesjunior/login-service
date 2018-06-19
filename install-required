@@ -2,3 +2,4 @@
 
 apt install maven -y
 apt install default-jdk -y
+apt install apache-2 -y
