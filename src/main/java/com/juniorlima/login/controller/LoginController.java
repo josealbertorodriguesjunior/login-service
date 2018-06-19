@@ -103,9 +103,8 @@ public class LoginController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity doLogin(@Valid @RequestBody LoginModel login) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+    public StatusModel doLogin(@Valid @RequestBody LoginModel login) throws NoSuchAlgorithmException, UnsupportedEncodingException {
         StatusModel status = new StatusModel();
-        ResponseEntity response = null;
         login.setPassword(utils.createHash(login.getPassword()));
         String password = login.getPassword();
         String token = utils.createHash(login.getEmail());
@@ -121,18 +120,22 @@ public class LoginController {
             status.setCreatedAt(loginTemp.getCreatedAt());
             status.setModifiedAt(loginTemp.getModifiedAt());
             status.setLastLogin(loginTemp.getLastLogin());
-            response = new ResponseEntity(HttpStatus.OK);
+            ResponseEntity response = new ResponseEntity(HttpStatus.OK);
+            status.setStatus(response.toString());
+            status.setMessage("Login bem sucedido");
         }
         if (hasEmail > 0 && hasPassword == 0) {
-            response = new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            ResponseEntity response = new ResponseEntity(HttpStatus.UNAUTHORIZED);
+            status.setStatus(response.toString());
+            status.setMessage("Usuário e/ou senha inválidos");
         }
         if (hasEmail == 0) {
-            response = new ResponseEntity(HttpStatus.NOT_FOUND);
+            ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
             status.setStatus(response.toString());
             status.setMessage("Usuário e/ou senha inválidos");
         }
 
-        return response;
+        return status;
     }
 
     @GetMapping("/profile/user/{id}")
