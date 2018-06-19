@@ -132,7 +132,7 @@ public class LoginController {
         if (hasEmail == 0) {
             ResponseEntity response = new ResponseEntity(HttpStatus.NOT_FOUND);
             status.setStatus(response.toString());
-            status.setMessage("Usuário e/ou senha inválidos");
+            status.setMessage("Email não cadastrado");
         }
 
         return status;
